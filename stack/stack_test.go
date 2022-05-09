@@ -15,9 +15,9 @@ func TestStackPeek(t *testing.T) {
 	}
 }
 
-func TestStackPush(t *testing.T) {
+func TestStackPushViaValue(t *testing.T) {
 	testStack := New("T", "E", "S")
-	testStack = testStack.Push("T")
+	testStack = testStack.Push_Value("T")
 	got := testStack.Peek()
 	expected := "T"
 	if *got != expected {
@@ -27,7 +27,7 @@ func TestStackPush(t *testing.T) {
 
 func TestStackPushViaPointer(t *testing.T) {
 	testStack := New("T", "E", "S")
-	testStack.PushP("T")
+	testStack.Push("T")
 	fmt.Println("testStack nach PushP: ", testStack)
 	got := testStack.Peek()
 	expected := "T"
@@ -53,7 +53,7 @@ func TestStackPushViaPointer(t *testing.T) {
 
 func TestStackPopViaPointer(t *testing.T) {
 	testStack := New("T", "E", "S")
-	got, err := testStack.PopP()
+	got, err := testStack.Pop()
 	if err != nil {
 		t.Error(err)
 	}
@@ -70,8 +70,8 @@ func TestStackPopViaPointer(t *testing.T) {
 
 func TestStackPopOnEmptyStack(t *testing.T) {
 	testStack := New(1)
-	_, err := testStack.PopP()
-	_, err = testStack.PopP()
+	_, err := testStack.Pop()
+	_, err = testStack.Pop()
 
 	if err == nil {
 		t.Error("Error expected, Stack was empty")

@@ -50,7 +50,7 @@ func New_sv[T any](vals ...T) *List[T] {
 	return &l
 }
 
-func (l List[T]) String_sv() string {
+func (l List[T]) String() string {
 	var sb strings.Builder
 	var naechster *List[T] = l.Tail()
 	var wert any = l.Value()
@@ -68,7 +68,7 @@ func (l List[T]) String_sv() string {
 	return sb.String()
 }
 
-func (l *List[T]) String() string {
+func (l *List[T]) String_alex() string {
 	if l == nil {
 		return "nil"
 	}

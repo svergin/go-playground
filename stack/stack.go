@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-type Stack[T any] []T // Vielleicht aber auch ein anderer Typ?
+type Stack[T any] []T
 
 //Erstellt einen Stack (LIFO)
 func New[T any](vals ...T) *Stack[T] {
@@ -17,7 +17,7 @@ func (s Stack[T]) PushOri(t T) {
 }
 
 // Ein neues Element auf den Stack legen
-func (s Stack[T]) Push(t T) *Stack[T] {
+func (s Stack[T]) Push_Value(t T) *Stack[T] {
 	newLength := len(s) + 1
 	if newLength > cap(s) {
 		s = append(s, t)
@@ -29,7 +29,7 @@ func (s Stack[T]) Push(t T) *Stack[T] {
 }
 
 // Ein neues Element auf den Stack legen
-func (s *Stack[T]) PushP(t T) {
+func (s *Stack[T]) Push(t T) {
 	var s1 = *s
 	newLength := len(s1) + 1
 	if newLength > cap(s1) {
@@ -44,7 +44,7 @@ func (s *Stack[T]) PushP(t T) {
 /* Funktioniert nicht, da das Element aus dem kopierten Stack
 entfernt wird und der Original-Stack unverändert bleibt
 */
-func (s Stack[T]) Pop() *T {
+func (s Stack[T]) Pop_Bad() *T {
 	last := &s[len(s)-1]
 	s = s[0 : len(s)-1]
 	fmt.Println("POP: ", s)
@@ -53,7 +53,7 @@ func (s Stack[T]) Pop() *T {
 
 // Das neueste Element aus dem Stack entfernen (LIFO)
 //TODO: Wie funtioniert die Fehlerbehandlung, wenn T kein Pointer ist?
-func (s *Stack[T]) PopP() (*T, error) {
+func (s *Stack[T]) Pop() (*T, error) {
 
 	if len(*s) == 0 {
 		fmt.Println(len(*s) == 0)
@@ -69,14 +69,6 @@ func (s *Stack[T]) PopP() (*T, error) {
 
 func (s *Stack[T]) PopPVreturn() T {
 
-	// if len(*s) == 0 {
-	// 	fmt.Println(len(*s) == 0)
-	// 	switch T.(types.Type) {
-	// 	case string:
-	// 		return v, true
-	// 	}
-
-	// }
 	s1 := *s
 	last := s1[len(s1)-1]
 	*s = s1[0 : len(s1)-1]
