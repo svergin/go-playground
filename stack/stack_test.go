@@ -58,8 +58,8 @@ func TestStackPopViaPointer(t *testing.T) {
 		t.Error(err)
 	}
 	expected := "S"
-	if *got != expected {
-		t.Errorf("Stack.Pop() = %v; want %v", *got, expected)
+	if got != expected {
+		t.Errorf("Stack.Pop() = %v; want %v", got, expected)
 	}
 	gotPeek := testStack.Peek()
 	expectedPeek := "E"
