@@ -52,19 +52,19 @@ func (s Stack[T]) Pop_Bad() *T {
 }
 
 // Das neueste Element aus dem Stack entfernen (LIFO)
-//TODO: Wie funtioniert die Fehlerbehandlung, wenn T kein Pointer ist?
-func (s *Stack[T]) Pop() (*T, error) {
-
+//Jetzt mit 'named Parameters' und 'naked return'
+func (s *Stack[T]) Pop() (result T, err error) {
 	if len(*s) == 0 {
 		fmt.Println(len(*s) == 0)
-
-		return nil, fmt.Errorf("Unable to execute Pop(), Stack is empty")
+		err = fmt.Errorf("Unable to execute Pop(), Stack is empty")
+		return
 	}
+
 	s1 := *s
-	last := &s1[len(s1)-1]
+	result = s1[len(s1)-1]
 	*s = s1[0 : len(s1)-1]
 	fmt.Println("POPP: ", s)
-	return last, nil
+	return
 }
 
 func (s *Stack[T]) PopPVreturn() T {
