@@ -54,7 +54,42 @@ func Test_Herons_formula_calculated_the_correct_result(t *testing.T) {
 	assert.Equal(t, 6.00, actual)
 }
 
-func Test_GetMiddle_should_return_the_correct_string(t *testing.T) {
+func Test_GetMiddle_should_return_the_correct_string_uneven_character_count(t *testing.T) {
 	actual := GetMiddle("Apfel")
 	assert.Equal(t, "f", actual)
+	actual = GetMiddle("Apfelkuchen")
+	assert.Equal(t, "k", actual)
+}
+
+func Test_GetMiddle_should_return_the_correct_string_even_character_count(t *testing.T) {
+	actual := GetMiddle("Obst")
+	assert.Equal(t, "bs", actual)
+
+}
+
+func Test_GetCount_should_rreturn_the_correct_number_of_vowels(t *testing.T) {
+	actual := GetCount("otto")
+	assert.Equal(t, 2, actual)
+	actual = GetCount("usambaraveilchen")
+	assert.Equal(t, 7, actual)
+}
+
+func Test_HighAndLow_should_return_the_correct_result(t *testing.T) {
+	actual := HighAndLow("1 2 3 4 5")
+	assert.Equal(t, "5 1", actual)
+	actual = HighAndLow("1 2 -3 4 5")
+	assert.Equal(t, "5 -3", actual)
+	actual = HighAndLow("1 9 3 4 -5")
+	assert.Equal(t, "9 -5", actual)
+}
+
+func Test_Accum_should_produce_the_correct_output(t *testing.T) {
+	actual := Accum("abcd")
+	assert.Equal(t, "A-Bb-Ccc-Dddd", actual)
+
+	actual = Accum("RqaEzty")
+	assert.Equal(t, "R-Qq-Aaa-Eeee-Zzzzz-Tttttt-Yyyyyyy", actual)
+
+	actual = Accum("cwAt")
+	assert.Equal(t, "C-Ww-Aaa-Tttt", actual)
 }

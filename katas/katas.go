@@ -1,7 +1,9 @@
 package katas
 
 import (
+	"fmt"
 	"math"
+	"strconv"
 	"strings"
 )
 
@@ -50,11 +52,65 @@ func Heron(a, b, c float64) (area float64) {
 
 //Kata: Get the Middle Character
 func GetMiddle(s string) string {
-	laenge := len(s)
 
+	laenge := len(s)
+	if laenge <= 1 {
+		return s
+	}
+	stringslice := strings.Split(s, "")
 	if laenge%2 == 1 {
-		//TODO
+		return stringslice[(laenge-1)/2]
+	} else {
+		haelfte := laenge / 2
+		return strings.Join(stringslice[haelfte-1:haelfte+1], "")
+	}
+}
+
+//Kata: Vowel Count
+func GetCount(str string) (count int) {
+	stringslice := strings.Split(str, "")
+
+	for _, v := range stringslice {
+		switch v {
+		case "a", "i", "e", "o", "u":
+			count++
+		}
+
 	}
 
-	return ""
+	return count
+}
+
+//Kata: Highest and Lowest
+func HighAndLow(in string) string {
+	hlSlice := strings.Split(in, " ")
+	var min int64 = 1
+	var max int64 = 1
+	for _, v := range hlSlice {
+		zahl, _ := strconv.ParseInt(v, 10, 32)
+		if zahl < min {
+			min = zahl
+		}
+		if zahl > max {
+			max = zahl
+		}
+	}
+	return fmt.Sprint(max, " ", min)
+}
+
+//Kata: Mumbling
+func Accum(s string) string {
+	builder := strings.Builder{}
+	toAccum := strings.Split(s, "")
+	var repeater int = 0
+	for count, v := range toAccum {
+		builder.WriteString(strings.ToUpper(v))
+		builder.WriteString(strings.Repeat(strings.ToLower(v), repeater))
+		repeater++
+		if count < len(toAccum)-1 {
+			builder.WriteString("-")
+		}
+	}
+
+	return builder.String()
 }
