@@ -3,6 +3,7 @@ package katas
 import (
 	"fmt"
 	"math"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -110,6 +111,42 @@ func Accum(s string) string {
 		if count < len(toAccum)-1 {
 			builder.WriteString("-")
 		}
+	}
+
+	return builder.String()
+}
+
+//Kata: Shortest Word
+func FindShortest(str string) int {
+	var minLength = len(str)
+	words := strings.Split(str, " ")
+	for _, v := range words {
+		var rpl = strings.NewReplacer(".", "", "?", "", "!", "", ";", "")
+		v = rpl.Replace(v)
+		if len(v) < minLength {
+			minLength = len(v)
+		}
+	}
+	return minLength
+}
+
+//Kata: Two to One
+func TwoToOne(s1, s2 string) string {
+	s1s := strings.Split(s1, "")
+	allLetters := append(s1s, strings.Split(s2, "")...)
+
+	letterMap := make(map[string]string)
+	for _, v := range allLetters {
+		letterMap[v] = v
+	}
+	uniqueLetters := make([]string, 0, len(letterMap))
+	for k := range letterMap {
+		uniqueLetters = append(uniqueLetters, k)
+	}
+	sort.Strings(uniqueLetters)
+	builder := strings.Builder{}
+	for _, k := range uniqueLetters {
+		builder.WriteString(k)
 	}
 
 	return builder.String()

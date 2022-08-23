@@ -93,3 +93,19 @@ func Test_Accum_should_produce_the_correct_output(t *testing.T) {
 	actual = Accum("cwAt")
 	assert.Equal(t, "C-Ww-Aaa-Tttt", actual)
 }
+
+func Test_FindShortest_should_return_shortest_word(t *testing.T) {
+	actual := FindShortest("Ein kurzer Satz.")
+	assert.Equal(t, 3, actual)
+	actual = FindShortest("Ein dickes Ei!")
+	assert.Equal(t, 2, actual)
+}
+
+func Test_TwoToOne_should_return_correct_sorted_string_with_single_occurance_of_every_letter(t *testing.T) {
+	actual := TwoToOne("aaxxbb", "yycccz")
+	assert.Equal(t, "abcxyz", actual)
+
+	actual = TwoToOne("aretheyhere", "yestheyarehere")
+	assert.Equal(t, "aehrsty", actual)
+
+}
