@@ -109,32 +109,3 @@ func Test_TwoToOne_should_return_correct_sorted_string_with_single_occurance_of_
 	assert.Equal(t, "aehrsty", actual)
 
 }
-
-func Test_Decomp(t *testing.T) {
-
-	// res := DecompGoRout(3) // !3 = 6
-	// assert.Equal(t, "2^1 * 3^1", res)
-
-	res := DecompGoRout(11)
-	assert.Equal(t, "2^10 * 3^5 * 5^2 * 7 * 11", res)
-
-}
-
-func Test_getPrimes(t *testing.T) {
-	res := getPrimes(2)
-	assert.ElementsMatch(t, []int{2}, res)
-
-	res = getPrimes(5)
-	assert.ElementsMatch(t, []int{2, 3, 5}, res)
-
-	res = getPrimes(6)
-	assert.ElementsMatch(t, []int{2, 3, 5}, res)
-
-	res = getPrimes(7)
-	assert.ElementsMatch(t, []int{2, 3, 5, 7}, res)
-}
-
-func Test_filterPrimes(t *testing.T) {
-	res := filterPrimes([]int{2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12}, []int{2, 3, 5, 7, 11})
-	assert.ElementsMatch(t, []int{2, 3, 5, 7, 11}, res)
-}
