@@ -2,6 +2,8 @@ package math
 
 import (
 	"fmt"
+	"math"
+	"sort"
 	"strings"
 )
 
@@ -29,17 +31,35 @@ func Decomp(n int) string {
 			count = 0
 		}
 	}
-	sb := strings.Builder{}
-	// fmt.Sprintln(pnums)
-	cnt := 0
-	for k, v := range res {
-		sb.WriteString(fmt.Sprintf("%v^%v", k, v))
-		cnt++
-		if cnt < len(res) {
-			sb.WriteString(" * ")
+
+	return toResultString(res)
+}
+
+func DecompV2(facultyNum int) string {
+
+	facultyResult := calcFalcuty(facultyNum)
+
+	primes := getPrimesV2(facultyResult)
+
+	res := make(map[int]int, len(primes))
+	count := 0
+	tmpnum := facultyResult
+
+	for i := 0; i < len(primes); i++ {
+		for {
+			if tmpnum%primes[i] != 0 {
+				break
+			}
+			tmpnum = tmpnum / primes[i]
+			count++
+		}
+		if count > 0 {
+			res[primes[i]] = count
+			count = 0
 		}
 	}
-	return sb.String()
+
+	return toResultString(res)
 }
 
 func DecompGoRout(facultyNum int) string {
@@ -59,15 +79,34 @@ func DecompGoRout(facultyNum int) string {
 		}
 
 	}
+
+	return toResultString(result)
+}
+
+func toResultString(primeFactorMapping map[int]int) string {
+	keys := make([]int, 0, len(primeFactorMapping))
+
+	for k := range primeFactorMapping {
+		keys = append(keys, k)
+	}
+	sort.Ints(keys)
+
 	sb := strings.Builder{}
 	cnt := 0
-	for k, v := range result {
-		sb.WriteString(fmt.Sprintf("%v^%v", k, v))
+	for _, k := range keys {
+		v := primeFactorMapping[k]
+
+		if v == 1 {
+			sb.WriteString(fmt.Sprintf("%v", k))
+		} else {
+			sb.WriteString(fmt.Sprintf("%v^%v", k, v))
+		}
 		cnt++
-		if cnt < len(result) {
+		if cnt < len(keys) {
 			sb.WriteString(" * ")
 		}
 	}
+
 	return sb.String()
 }
 
@@ -103,9 +142,35 @@ func calcFalcuty(n int) int {
 	return num
 }
 
-//primeCache := map[int]int {2:2}
+func getPrimesV2(num int) []int {
+	// start := time.Now()
+	length := num + 1
+	boolMatrix := make([]bool, length)
+
+	result := make([]int, 0)
+	// Sieb des Erastothenes v2
+	lim := int(math.Sqrt(float64(length)))
+	for i := 2; i <= lim; i++ {
+		if !boolMatrix[i] {
+			result = append(result, i)
+			for j := i * i; j < length; j = j + i {
+				boolMatrix[j] = true
+			}
+		}
+	}
+
+	for i := lim + 1; i < length; i++ {
+		if !boolMatrix[i] {
+			result = append(result, i)
+		}
+
+	}
+	// fmt.Printf("getPrimesV2() dauerte %v ms\n", time.Since(start).Milliseconds())
+	return result
+}
 
 func getPrimes(num int) []int {
+	// start := time.Now()
 	if num < 2 {
 		return []int{}
 	}
@@ -133,6 +198,7 @@ func getPrimes(num int) []int {
 	// start = time.Now()
 	result := filterPrimes(numToFilter, relevantPrimes)
 	// fmt.Printf("Filterung der Zahlenreihen-Slice dauerte %v ms\n", time.Since(start).Milliseconds())
+	// fmt.Printf("getPrimes() dauerte %v ms\n", time.Since(start).Milliseconds())
 
 	return result
 }
@@ -171,5 +237,3 @@ func filterPrimes(numToFilter, knownPrimes []int) []int {
 	}
 	return result
 }
-
-// Sieb des Erastothenes v2
