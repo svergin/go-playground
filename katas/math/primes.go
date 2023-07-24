@@ -142,17 +142,18 @@ func calcFalcuty(n int) int {
 	return num
 }
 
+// Sieb des Erastothenes v2
 func getPrimesV2(num int) []int {
-	// start := time.Now()
 	length := num + 1
 	boolMatrix := make([]bool, length)
 
 	result := make([]int, 0)
-	// Sieb des Erastothenes v2
 	lim := int(math.Sqrt(float64(length)))
 	for i := 2; i <= lim; i++ {
 		if !boolMatrix[i] {
+			//Primzahl gefunden
 			result = append(result, i)
+			//Vielfache der Primzahl streichen
 			for j := i * i; j < length; j = j + i {
 				boolMatrix[j] = true
 			}
@@ -165,12 +166,13 @@ func getPrimesV2(num int) []int {
 		}
 
 	}
-	// fmt.Printf("getPrimesV2() dauerte %v ms\n", time.Since(start).Milliseconds())
+
 	return result
 }
 
+// Sieb des Erastothenes v1
 func getPrimes(num int) []int {
-	// start := time.Now()
+
 	if num < 2 {
 		return []int{}
 	}

@@ -3,6 +3,7 @@ package math
 import (
 	"fmt"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -32,6 +33,9 @@ func Test_DecompV2(t *testing.T) {
 
 	res = DecompV2(12)
 	assert.Equal(t, "2^10 * 3^5 * 5^2 * 7 * 11", res)
+
+	// res := DecompV2(22)
+	// assert.Equal(t, "2^19 * 3^9 * 5^4 * 7^3 * 11^2 * 13 * 17 * 19", res)
 
 }
 
@@ -72,8 +76,12 @@ func Test_getPrimesV2(t *testing.T) {
 }
 
 func Test_getPrimes_Laufzeit(t *testing.T) {
+	start := time.Now()
 	getPrimes(100000000)
+	fmt.Printf("getPrimes() dauerte %v ms\n", time.Since(start).Milliseconds())
+	start = time.Now()
 	getPrimesV2(100000000)
+	fmt.Printf("getPrimesV2() dauerte %v ms\n", time.Since(start).Milliseconds())
 }
 func Benchmark_getPrimes(b *testing.B) {
 	testnums := []int{1000, 1000000, 10000000}
