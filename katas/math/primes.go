@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-// Kata: Factorial decomposition
+// Kata: Factorial decomposition <5 kyu>
 // https://www.codewars.com/kata/5a045fee46d843effa000070
 func Decomp(n int) string {
 
