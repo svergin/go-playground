@@ -8,15 +8,18 @@ const West direction = "west"
 const East direction = "east"
 
 func DirReduc(plan []direction) []direction {
-	for idx, cur := range plan {
-		if len(plan) > idx+1 {
-			next := plan[idx+1]
+
+	for i := 0; i < len(plan); i++ {
+		if len(plan) > i+1 {
+			cur := plan[i]
+			next := plan[i+1]
 			if cur.isOposing(next) {
-				plan = append(plan[:idx], plan[idx+2:]...)
-				// DirReduc(plan)
+				plan = append(plan[:i], plan[i+2:]...)
+				i = -1
 			}
 		}
 	}
+
 	return plan
 }
 
