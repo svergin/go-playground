@@ -20,8 +20,8 @@ func MakeSpiral(size int) string {
 		}
 	}
 
-	// return first(matrix, size)
-	return second(matrix, size)
+	return first(matrix, size)
+	//	return second(matrix, size)
 }
 
 func second(m [][]string, size int) string {
