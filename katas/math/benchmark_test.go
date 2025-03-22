@@ -14,7 +14,7 @@ func BenchmarkFibonacci(b *testing.B) {
 	fmt.Printf("Anzahl der CPU-Kerne: %d\n", numCPU)
 
 	// Setze Go auf die maximale Anzahl von CPUs
-	//runtime.GOMAXPROCS(numCPU)
+	runtime.GOMAXPROCS(numCPU)
 	benchmarkFibo(b)
 
 }
